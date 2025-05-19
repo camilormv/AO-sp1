@@ -66,12 +66,12 @@ def query_real_vs_estimated_delivered_time(database: Engine) -> QueryResult:
 def query_freight_value_weight_relationship(database: Engine) -> QueryResult:
     query_name = QueryEnum.GET_FREIGHT_VALUE_WEIGHT_RELATIONSHIP.value
 
-    # Get orders from olist_orders_dataset table
-    orders = read_sql("SELECT * FROM olist_orders_dataset", database)
+    # Get orders from olist_orders table
+    orders = read_sql("SELECT * FROM olist_orders", database)
     # Get items from olist_order_items table
-    items = read_sql("SELECT * FROM olist_order_items_dataset", database)
+    items = read_sql("SELECT * FROM olist_order_items", database)
     # Get products from olist_products table
-    products = read_sql("SELECT * FROM olist_products_dataset", database)
+    products = read_sql("SELECT * FROM olist_products", database)
 
     # Merge items with orders on order_id, then merge with products on product_id
     data = pd.merge(items, orders, on="order_id", how="inner")
@@ -99,7 +99,7 @@ def query_orders_per_day_and_holidays_2017(database) -> QueryResult:
 
     # 1. Read tables ---------------------------------------------------------
     holidays = read_sql("SELECT * FROM public_holidays", database)
-    orders   = read_sql("SELECT * FROM olist_orders_dataset", database)
+    orders   = read_sql("SELECT * FROM olist_orders", database)
 
     # 2. Convert the purchase timestamp to datetime and keep only 2017 -------
     orders["order_purchase_timestamp"] = to_datetime(

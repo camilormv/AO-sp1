@@ -13,14 +13,14 @@ SQLITE_BD_ABSOLUTE_PATH = str(Path(__file__).parent.parent / "olist.db")
 def get_csv_to_table_mapping() -> Dict[str, str]:
     return dict(
         [
-            ("olist_orders_dataset.csv", "olist_orders_dataset"),
-            ("olist_customers_dataset.csv", "olist_customers_dataset"),
-            ("olist_geolocation_dataset.csv", "olist_geolocation_dataset"),
-            ("olist_order_items_dataset.csv", "olist_order_items_dataset"),
-            ("olist_order_payments_dataset.csv", "olist_order_payments_dataset"),
-            ("olist_order_reviews_dataset.csv", "olist_order_reviews_dataset"),
-            ("olist_products_dataset.csv", "olist_products_dataset"),
-            ("olist_sellers_dataset.csv", "olist_sellers_dataset"),
+            ("olist_orders_dataset.csv", "olist_orders"),
+            ("olist_customers_dataset.csv", "olist_customers"),
+            ("olist_geolocation_dataset.csv", "olist_geolocation"),
+            ("olist_order_items_dataset.csv", "olist_order_items"),
+            ("olist_order_payments_dataset.csv", "olist_order_payments"),
+            ("olist_order_reviews_dataset.csv", "olist_order_reviews"),
+            ("olist_products_dataset.csv", "olist_products"),
+            ("olist_sellers_dataset.csv", "olist_sellers"),
             ("product_category_name_translation.csv", "product_category_name_translation"),
         ]
     )

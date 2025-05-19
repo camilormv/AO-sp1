@@ -11,11 +11,11 @@ SELECT
     COUNT(DISTINCT o.order_id) AS Num_order,
     SUM(p.payment_value) AS Revenue
 FROM
-    olist_orders_dataset o
-    JOIN olist_order_items_dataset oi ON o.order_id = oi.order_id
-    JOIN olist_products_dataset prod ON oi.product_id = prod.product_id
+    olist_orders o
+    JOIN olist_order_items oi ON o.order_id = oi.order_id
+    JOIN olist_products prod ON oi.product_id = prod.product_id
     JOIN product_category_name_translation t ON prod.product_category_name = t.product_category_name
-    JOIN olist_order_payments_dataset p ON o.order_id = p.order_id
+    JOIN olist_order_payments p ON o.order_id = p.order_id
 WHERE
     o.order_status = 'delivered'
     AND o.order_delivered_customer_date IS NOT NULL

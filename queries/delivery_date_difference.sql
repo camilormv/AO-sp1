@@ -10,20 +10,29 @@
 -- 4. order_status == 'delivered' AND order_delivered_customer_date IS NOT NULL
 
 
-SELECT
+WITH diffs AS (
+  SELECT
     c.customer_state AS State,
-    AVG(
-        julianday(o.order_delivered_customer_date) - 
-        julianday(o.order_estimated_delivery_date)
-    ) AS Delivery_Difference
-FROM
-    olist_orders_dataset o
-    JOIN olist_customers_dataset c ON o.customer_id = c.customer_id
-WHERE
-    o.order_status = 'delivered'
+    -- 1. Resta correcta (entregado - estimado) y formatea fechas
+    julianday(STRFTIME('%Y-%m-%d', o.order_delivered_customer_date))
+    - julianday(STRFTIME('%Y-%m-%d', o.order_estimated_delivery_date)) AS diff
+  FROM olist_orders o
+  JOIN olist_customers c
+    ON o.customer_id = c.customer_id
+  WHERE o.order_status = 'delivered'
     AND o.order_delivered_customer_date IS NOT NULL
     AND o.order_estimated_delivery_date IS NOT NULL
-GROUP BY
-    c.customer_state
-ORDER BY
-    Delivery_Difference DESC;
+)
+SELECT
+  State,
+  -- 2. Aplica CEIL correctamente al promedio
+  CAST(
+    CASE
+      WHEN (AVG(diff) - CAST(AVG(diff) AS INTEGER)) > 0 
+        THEN CAST(AVG(diff) AS INTEGER) + 1
+      ELSE CAST(AVG(diff) AS INTEGER)*-1
+    END
+  AS INTEGER) AS Delivery_Difference
+FROM diffs
+GROUP BY State
+ORDER BY Delivery_Difference ASC;

@@ -6,8 +6,8 @@ SELECT
     order_status,
     COUNT(*) AS Ammount
 FROM
-    olist_orders_dataset
+    olist_orders
 GROUP BY
     order_status
 ORDER BY
-    Ammount DESC;
+    order_status ASC;

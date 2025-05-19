@@ -23,7 +23,7 @@ def test_extract():
     assert dataframes["olist_order_items"].shape == (112650, 7)
     assert dataframes["olist_order_payments"].shape == (103886, 5)
     assert dataframes["olist_order_reviews"].shape == (99224, 7)
-    assert dataframes["olist_orders_dataset"].shape == (99441, 8)
+    assert dataframes["olist_orders"].shape == (99441, 8)
     assert dataframes["olist_products"].shape == (32951, 9)
     assert dataframes["olist_sellers"].shape == (3095, 4)
     assert dataframes["product_category_name_translation"].shape == (71, 2)
